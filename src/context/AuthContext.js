@@ -12,7 +12,7 @@ export const AuthContextProvider = ({ children }) => {
       id: 1,
       name: "Mridu",
       profilePic:
-        " https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600",
+        "https://w0.peakpx.com/wallpaper/170/826/HD-wallpaper-spider-black-blue-game-hero-logo-movie-spiderman-super-super-hero-thumbnail.jpg",
     });
   };
 
