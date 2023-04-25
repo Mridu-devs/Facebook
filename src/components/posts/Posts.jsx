@@ -1,31 +1,23 @@
+import { makeRequest } from "../../axios";
 import PostCard from "../postcard/PostCard";
 import "./posts.scss";
+import { useQuery } from "@tanstack/react-query";
 export default function Posts() {
-  //Temporary
-  const posts = [
-    {
-      id: 1,
-      name: "John Doe",
-      userId: 1,
-      profilePic:
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-      img: "https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600",
-    },
-    {
-      id: 2,
-      name: "Jenny Doe",
-      userId: 2,
-      profilePic:
-        "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?auto=compress&cs=tinysrgb&w=1600",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
-    },
-  ];
+  const { isLoading, error, data } = useQuery(["posts"], () =>
+    makeRequest.get("/posts").then((res) => {
+      return res.data;
+    })
+  );
+
+  console.log("data posts---------", data);
+
   return (
     <div className="posts">
-      {posts.map((post) => (
-        <PostCard post={post} key={post.id} />
-      ))}
+      {error
+        ? "Ooopss! Something went Wrong"
+        : isLoading
+        ? "loading.."
+        : data.map((post) => <PostCard post={post} key={post.id} />)}
     </div>
   );
 }
