@@ -10,7 +10,7 @@ export default function Comments({ postId }) {
   const { currentUser } = useContext(AuthContext);
   // console.log("postid of comment:", postId);
 
-  const { isLoading, error, data } = useQuery(["comments"], () =>
+  const { isLoading, error, data } = useQuery(["comments", postId], () =>
     makeRequest.get("/comments?postId=" + postId).then((res) => {
       // console.log("res-comment", res.data);
       return res.data;
