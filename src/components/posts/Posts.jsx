@@ -8,9 +8,6 @@ export default function Posts() {
       return res.data;
     })
   );
-
-  console.log("data posts---------", data);
-
   return (
     <div className="posts">
       {error

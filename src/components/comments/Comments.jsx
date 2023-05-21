@@ -8,26 +8,17 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 export default function Comments({ postId }) {
   const [desc, setDesc] = useState("");
   const { currentUser } = useContext(AuthContext);
+  // console.log("postid of comment:", postId);
 
   const { isLoading, error, data } = useQuery(["comments"], () =>
     makeRequest.get("/comments?postId=" + postId).then((res) => {
+      // console.log("res-comment", res.data);
       return res.data;
     })
   );
-  console.log("datacomment", data);
+  // console.log("datacomment", data);
 
   const queryClient = useQueryClient();
-
-  // const upload = async () => {
-  //   try {
-  //     const formData = new FormData();
-  //     // formData.append("file", file);
-  //     const res = await makeRequest.post("/upload", formData);
-  //     return res.data;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const mutation = useMutation(
     (newComment) => {
@@ -38,12 +29,12 @@ export default function Comments({ postId }) {
         // Invalidate and refetch
         queryClient.invalidateQueries(["comments"]);
       },
-      
     }
   );
 
   const onClickSend = async (e) => {
     mutation.mutate({ desc, postId });
+    // console.log("desc,postid", desc, postId);
     setDesc("");
   };
 
@@ -62,7 +53,7 @@ export default function Comments({ postId }) {
       {isLoading
         ? "loading"
         : data.map((comment) => (
-            <div className="comment">
+            <div className="comment" key={comment.id}>
               <img src={comment.profilePicture} alt="" />
               <div className="info">
                 <span>{comment.name}</span>
