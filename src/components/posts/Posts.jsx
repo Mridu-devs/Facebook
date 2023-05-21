@@ -1,7 +1,7 @@
 import { makeRequest } from "../../axios";
+import { useQuery } from "@tanstack/react-query";
 import PostCard from "../postcard/PostCard";
 import "./posts.scss";
-import { useQuery } from "@tanstack/react-query";
 export default function Posts() {
   const { isLoading, error, data } = useQuery(["posts"], () =>
     makeRequest.get("/posts").then((res) => {

@@ -6,14 +6,24 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import moment from "moment/moment";
+import { makeRequest } from "../../axios";
+import { useQuery } from "@tanstack/react-query";
+import { AuthContext } from "../../context/AuthContext";
 
 function PostCard({ post }) {
   const [commentOpen, setCommentOpen] = useState(false);
 
-  //Temporary
-  const liked = false;
+  const { currentUser } = useContext(AuthContext);
+
+  const { isLoading, error, data } = useQuery(["likes", post.id], () =>
+    makeRequest.get("/likes?postId=" + post.id).then((res) => {
+      return res.data;
+    })
+  );
+  console.log("likesdata", data);
+
   return (
     <div className="postcard">
       <div className="container">
@@ -38,8 +48,19 @@ function PostCard({ post }) {
         </div>
         <div className="info">
           <div className="item">
-            {liked ? <FavoriteOutlinedIcon /> : <FavoriteBorderOutlinedIcon />}
-            12 Likes
+            {/* {data ? (
+              data.includes(currentUser.id) && (
+                <FavoriteOutlinedIcon style={{ color: "red" }} />
+              )
+            ) : (
+              <FavoriteBorderOutlinedIcon />
+            )} */}
+            {data.includes(currentUser.id) ? (
+              <FavoriteOutlinedIcon style={{ color: "red" }} />
+            ) : (
+              <FavoriteBorderOutlinedIcon />
+            )}
+            {data ? data.length : 0} Likes
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
             <TextsmsOutlinedIcon />

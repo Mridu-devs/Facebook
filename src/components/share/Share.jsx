@@ -68,6 +68,7 @@ const Share = () => {
             <input
               type="file"
               id="file"
+              accept="image/jpeg, image/png"
               style={{ display: "none" }}
               onChange={(e) => setFile(e.target.files[0])}
             />
