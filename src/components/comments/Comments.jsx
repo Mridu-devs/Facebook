@@ -60,7 +60,7 @@ export default function Comments({ postId }) {
                 <p>{comment.desc}</p>
               </div>
               <span className="date">
-                {moment(comment.createdAT).fromNow()}
+                {moment(comment.createdAt).fromNow()}
               </span>
             </div>
           ))}
