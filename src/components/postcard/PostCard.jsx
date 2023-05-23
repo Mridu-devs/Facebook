@@ -9,7 +9,7 @@ import Comments from "../comments/Comments";
 import { useContext, useState } from "react";
 import moment from "moment/moment";
 import { makeRequest } from "../../axios";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../../context/AuthContext";
 
 function PostCard({ post }) {
@@ -22,7 +22,24 @@ function PostCard({ post }) {
       return res.data;
     })
   );
-  console.log("likesdata", data);
+
+  const queryClient = useQueryClient();
+  const mutation = useMutation(
+    (liked) => {
+      if (liked) return makeRequest.delete("/likes?postid=" + post.id);
+      return makeRequest.post("/likes", { postid: post.id });
+    },
+    {
+      onSuccess: () => {
+        // Invalidate and refetch
+        queryClient.invalidateQueries(["likes"]);
+      },
+    }
+  );
+
+  const handleLike = () => {
+    mutation.mutate(data.includes(currentUser.id));
+  };
 
   return (
     <div className="postcard">
@@ -55,10 +72,15 @@ function PostCard({ post }) {
             ) : (
               <FavoriteBorderOutlinedIcon />
             )} */}
-            {data.includes(currentUser.id) ? (
-              <FavoriteOutlinedIcon style={{ color: "red" }} />
+            {isLoading ? (
+              "loading"
+            ) : data.includes(currentUser.id) ? (
+              <FavoriteOutlinedIcon
+                style={{ color: "red" }}
+                onClick={handleLike}
+              />
             ) : (
-              <FavoriteBorderOutlinedIcon />
+              <FavoriteBorderOutlinedIcon onClick={handleLike} />
             )}
             {data ? data.length : 0} Likes
           </div>

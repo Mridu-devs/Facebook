@@ -11,7 +11,6 @@ const Share = () => {
   const [file, setFile] = useState(null);
   const [desc, setDesc] = useState("");
   const { currentUser } = useContext(AuthContext);
-  const queryClient = useQueryClient();
 
   const upload = async () => {
     try {
@@ -24,6 +23,7 @@ const Share = () => {
     }
   };
 
+  const queryClient = useQueryClient();
   const mutation = useMutation(
     (newPost) => {
       return makeRequest.post("/posts", newPost);
