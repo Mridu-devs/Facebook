@@ -40,7 +40,6 @@ function PostCard({ post }) {
   const handleLike = () => {
     mutation.mutate(data.includes(currentUser.id));
   };
-
   return (
     <div className="postcard">
       <div className="container">
@@ -49,7 +48,7 @@ function PostCard({ post }) {
             <img src={post.profilePic} alt="" />
             <div className="details">
               <Link
-                to={`/profile/${post.userID}`}
+                to={`/profile/${post.userid}`}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <span className="name">{post.name}</span>
