@@ -1,6 +1,6 @@
-<img width="950" alt="Facebook-profilescreen" src="https://github.com/Mridu-devs/Facebook/assets/123240947/c7ad1557-2372-4dd8-b5bd-b6b9a2158c5a">
+<img width="779" alt="Facebook-signup" src="https://github.com/Mridu-devs/Facebook/assets/123240947/1ecd0981-cda2-4726-b1d5-6169d33f2b40">
+![Uploading Facebook-profilescreen.png…]()
 ![Uploading Facebook-login.png…]()
 ![Uploading Facebook-homepage-lightmode.png…]()
 ![Uploading Facebook-homepage-darkmode.png…]()
 ![Uploading Facebook-comments.png…]()
-![Uploading Facebook-signup.png…]()
